@@ -68,8 +68,11 @@ CREATE DATABASE girpss;
      contact_enseignant INT,
      salaire_enseignant INT,
      age_enseignant CHAR,
-     etat_enseignant INT DEFAULT 0;
-     PRIMARY KEY (id_enseignant)
+     photo_enseignant VARCHAR(100),
+        id_quartier,
+     etat_enseignant INT DEFAULT 0,
+     PRIMARY KEY (id_enseignant),
+     FOREIGN KEY (id_quartier) REFERENCES quartier(id_quartier) ON UPDATE CASCADE ON DELETE CASCADE
  );
 
 CREATE TABLE IF NOT EXISTS planification(

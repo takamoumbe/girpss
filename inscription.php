@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/icons.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/modal2.css" />
         <script src="assets/js/modernizr.min.js"></script>
 
     </head>

@@ -234,28 +234,97 @@
                                     </div>
                                 </div>
                             </div>
-
-                                    <form class="form-horizontal" action="traitement/connexion.php" method="POST">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form class="form-horizontal" action="traitement/enregistrer_prof.php" method="POST" enctype="multipart/form-data">
 
                                         <div class="form-group row">
                                             <div class="col-12">
-                                                <input class="form-control" type="text" name="email" required="" placeholder="email">
+                                                <label>Nom</label>
+                                                <input class="form-control" type="text" name="nom" required="" placeholder="Nom">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-12">
-                                                <input class="form-control" type="password" name="password" required="" placeholder="Password">
+                                                <label>Profession</label>
+                                                <input class="form-control" type="text" name="profession" required="" placeholder="profession">
+                                            </div>
+                                        </div>
+                                         <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Contact</label>
+                                                <input class="form-control" type="number" min="0" name="contact" required="" placeholder="Contact">
+                                            </div>
+                                        </div>  
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Salaire</label>
+                                                <input class="form-control" type="number" min="100" name="salaire" required="" placeholder="Salaire">
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Age</label>
+                                                <input class="form-control" type="number" min="10" name="age" required="" placeholder="Age">
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                 <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <label>Quartier</label>
+                                                        <select class="form-control" name="quartier" required="">
+                                                            <option value="0">Selectionner un quartier</option>
+                                                        </select>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <label>Quartier absent </label>
+                                                        <input class="form-control" type="text" name="quartierAbsent" placeholder="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <label>Jour d'enseignement</label>
+                                                        <select class="form-control" multiple size="7" name="jours[]" required="">
+                                                            <option value="1">Lundi</option>
+                                                            <option value="2">Mardi</option>
+                                                            <option value="3">Mercredi</option>
+                                                            <option value="4">jeudi</option>
+                                                            <option value="5">Vendredi</option>
+                                                            <option value="6">Samedi</option>
+                                                            <option value="7">Dimanche</option>
+                                                        </select>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-6">
+                                                <label>Selectionner une image</label>
+                                                <div class="image">
+                                                    <input type="file" name="photo" id="photo" >
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group account-btn text-center m-t-10">
                                             <div class="col-12">
-                                                <button class="btn w-md btn-bordered btn-danger waves-effect waves-light" name="connexion" type="submit">Enregistrer</button>
+                                                <button class="btn w-md btn-bordered btn-danger waves-effect waves-light" name="enregistrer_prof" type="submit">Enregistrer</button>
                                             </div>
                                         </div>
                                     </form>
-                        
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- a coter du formulaire -->
+                                </div>
+                            </div>
                     </div> <!-- end row -->
                 </div> <!-- container -->
             </div> <!-- content -->
@@ -316,5 +385,16 @@
                 <!-- App js -->
                 <script src="assets/js/jquery.core.js"></script>
                 <script src="assets/js/jquery.app.js"></script>
+
+                <?php if (isset($_SESSION['message_enregistrer_prof'])):?>
+      <?php
+        echo '<script type="text/javascript">';
+        echo 'alert("';
+        echo $_SESSION['message_enregistrer_prof'];
+        echo '")';
+        echo "</script>";
+        unset($_SESSION['message_enregistrer_prof']);
+     ?>
+    <?php  endif ?>
     </body>
 </html>
