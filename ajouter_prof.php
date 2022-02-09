@@ -269,26 +269,25 @@
                                                 <input class="form-control" type="number" min="10" name="age" required="" placeholder="Age">
                                             </div>
                                         </div> 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                 <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <label>Quartier</label>
-                                                        <select class="form-control" name="quartier" required="">
-                                                            <option value="0">Selectionner un quartier</option>
-                                                        </select>
-                                                    </div>
-                                                </div> 
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Quartier</label>
+                                                <select class="form-control" name="quartier" required="">
+                                                    <option value="0">Selectionner un quartier</option>
+                                                    <?php 
+                                                    $requete_quartier = mysqli_query($conn,"SELECT*FROM quartier");
+                                                    $counter_quartier = mysqli_num_rows($requete_quartier);
+                                                     for ($i=0; $i < $counter_quartier ; $i++) {
+                                                        $parcour_quartier = mysqli_fetch_array($requete_quartier);
+                                                        ?>
+                                                         
+                                                        <option value="<?php echo $parcour_quartier['id_quartier']?>"><?php echo $parcour_quartier['nom_quartier']?></option>
+                                                        <?php 
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <label>Quartier absent </label>
-                                                        <input class="form-control" type="text" name="quartierAbsent" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> 
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group row">
@@ -321,8 +320,20 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-md-4">
-                                    <!-- a coter du formulaire -->
+                                <div class="col-md-4" >
+                                   <form class="form-horizontal" action="traitement/enregistrer_quartier.php" method="POST">
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Quartier absent</label>
+                                                <input class="form-control" type="text" name="quartier_absent" required="" placeholder="Quartier">
+                                            </div>
+                                        </div> 
+                                       <div class="form-group account-btn text-center m-t-5">
+                                            <div class="col-12">
+                                                <button class="btn w-md btn-bordered btn-info waves-effect waves-light" name="enregistrer_quartier" type="submit"><i class="ion ion-md-checkmark "></i></button>
+                                            </div>
+                                        </div>
+                                   </form>
                                 </div>
                             </div>
                     </div> <!-- end row -->
@@ -394,6 +405,17 @@
         echo '")';
         echo "</script>";
         unset($_SESSION['message_enregistrer_prof']);
+     ?>
+    <?php  endif ?>
+
+      <?php if (isset($_SESSION['enregistrer_quartier'])):?>
+      <?php
+        echo '<script type="text/javascript">';
+        echo 'alert("';
+        echo $_SESSION['enregistrer_quartier'];
+        echo '")';
+        echo "</script>";
+        unset($_SESSION['enregistrer_quartier']);
      ?>
     <?php  endif ?>
     </body>

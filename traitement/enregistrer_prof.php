@@ -14,7 +14,6 @@
 		$age = $_POST['age'];
 		$quartier = $_POST['quartier'];
 		$image = $_POST['image'];
-		$quartierAbsent = $_POST['quartier_absent'];
 
 		//inserer une image
 		  $target_dir = "images_prof/";
@@ -33,19 +32,8 @@
 	      						if (file_exists($target_file)) {
 	      							$_SESSION['message_enregistrer_prof'] = "Erreur cette photo existe deja";
 	      						}else{
-				      				if($quartier ==0 && $quartierAbsent == ""){
-				    					$_SESSION['message_enregistrer_prof'] = "Entrer ou selectionner un quartier";
-				   		 			}elseif($quartier ==0 && $quartier_absent != ""){
-				   		 				if (move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file)) {
-				   		 					//insersion de l enseignant avec quartier
-				   		 				}
-				   					 }elseif($quartier !=0 && $quartier_absent != ""){
-				   		 					$_SESSION['message_enregistrer_prof'] = "Erreur remplissez un des champs correspondant au quartier";
-				   					 }elseif($quartier !=0 && $quartier_absent == ""){
-				   					 	if (move_uploaded_file($_FILES["photo"]["tmp_name"],$target_file)) {
-				   		 					//insertion de l enseignant sans quartier
-				   		 				}
-				   					 }
+				      					$inserer_prof = mysqli_query($conn,"INSERT INTO enseignant(nom_enseignant,profession_enseignant,contact_enseignant,salaire_enseignant,age_enseignant,photo_enseignant,id_quartier,etat_enseignant) VALUES('$nom','$profession','$contact','$salaire',$age,'$target_file',$quartier,0)");
+				   					 
 				   				}
 			   				}
 	   				 }
