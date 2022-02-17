@@ -1,3 +1,7 @@
+<?php require_once "traitement/connexion_bdd.php";
+      $conn = connexion();
+      session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -71,7 +75,7 @@
                                             <h5>Notifications</h5>
                                         </li>
                                         <li>
-                                            <a href="admin-widgets.html" class="user-list-item">
+                                            <a href="acceuil.php" class="user-list-item">
                                                 <div class="icon bg-info">
                                                     <i class="mdi mdi-account"></i>
                                                 </div>
@@ -139,7 +143,7 @@
                         <ul>
                         	<li class="menu-title">Navigation</li>
                           <li class="has_sub">
-                              <a href="admin-widgets.html" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Acceuil </span> </a>
+                              <a href="acceuil.php" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Acceuil </span> </a>
                           </li>
                           <li class="has_sub">
                               <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account"></i> <span> Professeurs </span> <span class="menu-arrow"></span></a>
@@ -250,46 +254,205 @@
 
                         <div class="card-box col-md-12">
                          <div class="row">
+                            <?php 
+                                $requete_prof = mysqli_query($conn,"SELECT*FROM enseignant,quartier WHERE enseignant.id_quartier = quartier.id_quartier AND etat_enseignant = 0");
+                                $counter_prof = mysqli_num_rows($requete_prof);
+                                for ($i=0; $i < $counter_prof ; $i++) {
+                                    $parcour_prof = mysqli_fetch_array($requete_prof);
+                            ?>
                            <div class="col-xl-6 col-md-9">
                                <div class="card-box widget-box-two widget-two-primary row col-md-12">
                                  <div class="col-md-7">
-                                   <p class="text-uppercase font-600 font-secondary text-overflow">NOMS: KANGA Tekem Brice</p>
-                                   <p class="text-overflow">Age: 25 ans</p>
-                                   <p class="text-overflow">Profession: Enseignant</p>
-                                   <p class="text-overflow">Contact: +237 657 024 814</p>
-                                     <h5 class="">Matières: Mathematique</h5>
-                                     <p>Début: 04/01/2022</p>
-                                     <h6 class="text-danger">Salaire: 7000 XAF</h6>
-                                     <button class="btn w-md btn-info btn-bordered waves-effect waves-light" type="submit">Plus</button>
+                                   <p class="text-uppercase font-600 font-secondary text-overflow"><?php echo 'NOM :'.' '.$parcour_prof['nom_enseignant']?></p>
+                                   <p class="text-overflow"><?php echo 'Age :'.' '.$parcour_prof['age_enseignant'].' ans'?></p>
+                                   <p class="text-overflow"><?php echo 'Profession :'.' '.$parcour_prof['profession_enseignant']?></p>
+                                   <p class="text-overflow"><?php echo 'Contact :'.' +237 '.$parcour_prof['contact_enseignant']?></p>
+                                   <p class="text-overflow"><?php echo 'Quartier :'.' '.$parcour_prof['nom_quartier']?></p>
+                                     <h5 class=""><?php echo 'Matiere :'.' '.$parcour_prof['matiere_enseignant']?></h5>
+                                     <p><?php echo 'Debut :'.' '.$parcour_prof['date_enregistrer']?></p>
+                                     <h6 class="text-overflow"><?php echo 'Salaire :'.' '.$parcour_prof['salaire_enseignant'].' XAF'?></h6>
+                                     <!-- selectionner les jours -->
+                                     <?php 
+                                        $select_jour = mysqli_query($conn,"SELECT planification.nom_jour FROM enseignant_jour,enseignant,planification WHERE  enseignant.id_enseignant = $parcour_prof['id_enseignant'] AND enseignant_jour.id_jour = planification.id_jour AND enseignant.id_enseignant = enseignant_jour.id_enseignant");
+                                        if ($select_jour) {
+                                           $count_jour = mysqli_num_rows($select_jour);
+                                           ?>
+                                               <select multiple size="<?php echo $count_jour ?>" disable>
+                                           <?php
+                                           for ($i=0; $i <$count_jour ; $i++) { 
+                                                $parcourt_jour = mysqli_fetch_array($select_jour);
+                                               ?> 
+                                                   <option><?php echo $parcourt_jour['nom_jour'] ?></option>
+                                               
+                                               <?php
+                                           }
+                                           ?>
+                                           </select>
+                                        <?php
+                                        }
+                                      ?>
+                                      <br>
+                                     <a href="traitement/enregistrer_prof.php?delete=<?php echo $parcour_prof['id_enseignant']?>"><button class="btn w-ms btn-danger btn-bordered waves-effect waves-light" type="submit"><i class=" ion ion-md-trash"></i></button></a>
+                                     <a href="liste_prof.php?edit=<?php echo $parcour_prof['id_enseignant']?>"><button class="btn w-ms btn-info btn-bordered waves-effect waves-light" type="submit"><i class="ion ion-md-create"></i></button></a>
                                  </div>
                                  <div class=" col-md-5">
-                                     <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
+                                    <?php  $img = 'traitement/'.$parcour_prof['photo_enseignant'];?>
+                                     <img src="<?php echo $img; ?>" class="card-img" alt="">
                                  </div>
                                </div>
                            </div><!-- end col -->
-                           <div class="col-xl-6 col-md-9">
-                               <div class="card-box widget-box-two widget-two-primary row col-md-12">
-                                 <div class="col-md-7">
-                                   <p class="text-uppercase font-600 font-secondary text-overflow">NOMS: KANGA Tekem Brice</p>
-                                   <p class="text-overflow">Age: 20 ans</p>
-                                   <p class="text-overflow">Profession: Etudiant</p>
-                                   <p class="text-overflow">Contact: +237 659 373 726</p>
-                                     <h5 class="">Matières: Informatique</h5>
-                                     <p>Début: 04/01/2022</p>
-                                     <h6 class="text-danger">Salaire: 10 000 XAF</h6>
-                                     <button class="btn w-md btn-info btn-bordered waves-effect waves-light" type="submit">Plus</button>
-                                 </div>
-                                 <div class=" col-md-5">
-                                     <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
-                                 </div>
-                               </div>
-                           </div><!-- end col -->
+                            <?php 
+                                }
+                            ?>
                         </div> <!-- end row -->
+
+                        <?php
+                            if(isset($_GET['edit'])){
+                                $id_prof = $_GET['edit'];
+                                $modif_prof = mysqli_query($conn,"SELECT*FROM enseignant,quartier WHERE enseignant.id_quartier = quartier.id_quartier AND etat_enseignant = 0 AND id_enseignant = $id_prof");
+                                $parcourt_prof = mysqli_fetch_array($modif_prof);
+                        ?> 
+                            <!-- start edit -->
+                            <div class="col-xl-12 col-md-12">
+                                <div class="card-box widget-box-two widget-two-success">
+                                      <div class="row">
+                                        
+                                  <div class="col-md-8">
+                                    <form class="form-horizontal" action="traitement/enregistrer_prof.php" method="POST" enctype="multipart/form-data">
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Nom</label>
+                                                <input class="form-control" type="text" name="nom" required="" value=" <?php echo $parcourt_prof['nom_enseignant'] ?>" placeholder="Nom">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Profession</label>
+                                                <input class="form-control" type="text" value=" <?php echo $parcourt_prof['profession_enseignant'] ?>" name="profession" required="" placeholder="profession">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Matiere</label>
+                                                <input class="form-control" type="text" value=" <?php echo $parcourt_prof['matiere_enseignant'] ?>" name="matiere" required="" placeholder="Matiere">
+                                            </div>
+                                        </div>
+                                         <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Contact</label>
+                                                <input class="form-control" type="number" min="0" value="<?php echo $parcourt_prof['contact_enseignant'] ?>" name="contact" required="" placeholder="Contact">
+                                            </div>
+                                        </div>  
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Date Enregistrement</label>
+                                                <input class="form-control" type="date" value="<?php echo $parcourt_prof['date_enregistrer'] ?>" name="date" required="" placeholder="Date d'enseignement">
+                                            </div>
+                                        </div>  
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Salaire</label>
+                                                <input class="form-control" value="<?php echo $parcourt_prof['salaire_enseignant'] ?>" type="number" min="100" name="salaire" required="" placeholder="Salaire">
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Age</label>
+                                                <input class="form-control" value="<?php echo $parcourt_prof['age_enseignant'] ?>" type="number" min="10" name="age" required="" placeholder="Age">
+                                            </div>
+                                        </div> 
+                                         <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Sexe</label>
+                                                <select class="form-control" name="sexe" required="">
+                                                    <option></option>
+                                                    <option value="M">Masculin</option>
+                                                    <option value="M">Feminin</option>
+                                                </select>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Quartier</label>
+                                                <select class="form-control" name="quartier" required="">
+                                                    <option value="0">Selectionner un quartier</option>
+                                                    <?php 
+                                                    $requete_quartier = mysqli_query($conn,"SELECT*FROM quartier");
+                                                    $counter_quartier = mysqli_num_rows($requete_quartier);
+                                                     for ($i=0; $i < $counter_quartier ; $i++) {
+                                                        $parcour_quartier = mysqli_fetch_array($requete_quartier);
+                                                        ?>
+                                                        <option value="<?php echo $parcour_quartier['id_quartier']?>"><?php echo $parcour_quartier['nom_quartier']?></option>
+                                                        <?php 
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <label>Jour d'enseignement</label>
+                                                        <select class="form-control" multiple size="7" name="jours[]" required="">
+                                                            <option value="1">Lundi</option>
+                                                            <option value="2">Mardi</option>
+                                                            <option value="3">Mercredi</option>
+                                                            <option value="4">jeudi</option>
+                                                            <option value="5">Vendredi</option>
+                                                            <option value="6">Samedi</option>
+                                                            <option value="7">Dimanche</option>
+                                                        </select>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-6">
+                                                <label>Selectionner une image</label>
+                                                <div>
+                                                    <img src="<?php echo 'traitement/'.$parcourt_prof['photo_enseignant'] ?>" wi>
+                                                </div>
+                                                <div class="image">
+                                                    <input type="file" name="photo" value="<?php echo $parcourt_prof['photo_enseignant'] ?>" id="photo" >
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group account-btn text-center m-t-10">
+                                            <div class="col-12">
+                                               <button class="btn w-md btn-bordered btn-danger waves-effect waves-light" name="modifier_prof" type="submit">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-4" >
+                                   <form class="form-horizontal" action="traitement/enregistrer_quartier_modif.php" method="POST">
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Quartier absent</label>
+                                                <input class="form-control" type="text" name="quartier_absent" required="" placeholder="Quartier">
+                                            </div>
+                                        </div> 
+                                       <div class="form-group account-btn text-center m-t-5">
+                                            <div class="col-12">
+                                                <button class="btn w-md btn-bordered btn-info waves-effect waves-light" name="enregistrer_quartier" type="submit"><i class="ion ion-md-checkmark "></i></button>
+                                            </div>
+                                        </div>
+                                   </form>
+                                 </div>
+                                </div>
+                                </div>
+                            </div><!-- end col -->
+                            <!-- end edit -->
+                             <?php
+                                }
+                                ?>
                       </div>
                     </div> <!-- container -->
                 </div> <!-- content -->
                 <footer class="footer">
-                    2022 - 2023 © Girpress <span class="d-none d-sm-inline-block">tout droit réserver.</span>
+                    2022 - 2023 © Girpss <span class="d-none d-sm-inline-block">tout droit réserver.</span>
                 </footer>
             </div>
 
@@ -345,5 +508,15 @@
         <script src="assets/js/jquery.core.js"></script>
         <script src="assets/js/jquery.app.js"></script>
 
+                <?php if (isset($_SESSION['message_supprimer_prof'])):?>
+      <?php
+        echo '<script type="text/javascript">';
+        echo 'alert("';
+        echo $_SESSION['message_supprimer_prof'];
+        echo '")';
+        echo "</script>";
+        unset($_SESSION['message_supprimer_prof']);
+     ?>
+    <?php  endif ?>
     </body>
 </html>

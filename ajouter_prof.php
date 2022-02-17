@@ -144,7 +144,7 @@
                             <li class="menu-title">Navigation</li>
 
                             <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Acceuil </span> </a>
+                                <a href="acceuil.php" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Acceuil </span> </a>
                             </li>
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account"></i> <span> Professeurs </span> <span class="menu-arrow"></span></a>
@@ -235,6 +235,13 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <?php
+                                    $modif_prof = mysqli_query($conn,"SELECT*FROM enseignant,quartier WHERE enseignant.id_quartier = quartier.id_quartier AND etat_enseignant = 0");
+                                    $count_prof = mysqli_num_rows($modif_prof);
+                                    if($count_prof == 1){
+                                        $modif_prof_parcourt = mysqli_fetch_array($modif_prof);
+                                        }
+                                ?>
                                 <div class="col-md-8">
                                     <form class="form-horizontal" action="traitement/enregistrer_prof.php" method="POST" enctype="multipart/form-data">
 
@@ -249,6 +256,12 @@
                                             <div class="col-12">
                                                 <label>Profession</label>
                                                 <input class="form-control" type="text" name="profession" required="" placeholder="profession">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Matiere</label>
+                                                <input class="form-control" type="text" name="matiere" required="" placeholder="Matiere">
                                             </div>
                                         </div>
                                          <div class="form-group row">
@@ -267,6 +280,16 @@
                                             <div class="col-12">
                                                 <label>Age</label>
                                                 <input class="form-control" type="number" min="10" name="age" required="" placeholder="Age">
+                                            </div>
+                                        </div> 
+                                         <div class="form-group row">
+                                            <div class="col-12">
+                                                <label>Sexe</label>
+                                                <select class="form-control" name="sexe"required="">
+                                                    <option></option>
+                                                    <option value="M">Masculin</option>
+                                                    <option value="M">Feminin</option>
+                                                </select>
                                             </div>
                                         </div> 
                                         <div class="form-group row">

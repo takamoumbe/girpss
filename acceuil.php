@@ -235,6 +235,7 @@
 							               </div>
 						             </div>
                         <!-- end row -->
+                        
                         <form class="" action="index.html" method="post">
                           <div class="row">
                               <div class="col-xl-3 col-md-6">
@@ -250,62 +251,7 @@
                                   </div>
                               </div><!-- end col -->
 
-                              <div class="col-xl-3 col-md-6">
-                                  <div class="card-box widget-box-two widget-two-success row col-md-12">
-                                    <div class="col-md-7">
-                                      <p class="text-uppercase font-600 font-secondary text-overflow">Mr TAKAM</p>
-                                        <h5 class="">Informatiques</h5>
-                                        <input type="checkbox" class="" name="" value=""><label class="q1r1"> Presence</label>
-                                    </div>
-                                    <div class=" col-md-5">
-                                        <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
-                                    </div>
-                                  </div>
-                              </div><!-- end col -->
-
-                              <div class="col-xl-3 col-md-6">
-                                  <div class="card-box widget-box-two widget-two-warning row col-md-12">
-                                    <div class="col-md-7">
-                                      <p class="text-uppercase font-600 font-secondary text-overflow">Mr Brice</p>
-                                        <h5 class="">Mecanique</h5>
-                                        <input type="checkbox" class="" name="" value=""><label class="q1r1"> Presence</label>
-                                    </div>
-                                    <div class=" col-md-5">
-                                        <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
-                                    </div>
-                                  </div>
-                              </div><!-- end col -->
-
-                              <div class="col-xl-3 col-md-6">
-                                  <div class="card-box widget-box-two widget-two-info row col-md-12">
-                                    <div class="col-md-7">
-                                      <p class="text-uppercase font-600 font-secondary text-overflow">Mme TCHOUA</p>
-                                        <h5 class="">Anglais</h5>
-                                        <input type="checkbox" class="" name="" value=""><label class="q1r1"> Presence</label>
-                                    </div>
-                                    <div class=" col-md-5">
-                                        <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
-                                    </div>
-                                  </div>
-                              </div><!-- end col -->
-                          </div>
-                          <!-- end row -->
-
-                          <div class="row">
-
-                              <div class="col-xl-3 col-md-6">
-                                  <div class="card-box widget-box-two widget-two-danger row col-md-12">
-                                    <div class="col-md-7">
-                                      <p class="text-uppercase font-600 font-secondary text-overflow">Mme PAMELA</p>
-                                        <h5 class="">Comptabilite</h5>
-                                        <input type="checkbox" class="" name="" value=""><label class="q1r1"> Presence</label>
-                                    </div>
-                                    <div class=" col-md-5">
-                                        <img src="assets/images/profil/profil1.jpg" class="card-img" alt="">
-                                    </div>
-                                  </div>
-                              </div><!-- end col -->
-
+                             
                           </div>
                           <!-- end row -->
                       </form>

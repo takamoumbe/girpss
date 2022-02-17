@@ -33,7 +33,7 @@ CREATE DATABASE girpss;
      nom_admin VARCHAR (200),
      email_admin VARCHAR (200),
      password_admin TEXT,
-     id_quartier INT, 
+     id_admin INT, 
      etat_quartier INT DEFAULT 0,
      PRIMARY KEY (id_admin),
      FOREIGN KEY (id_quartier) REFERENCES quartier(id_quartier) ON UPDATE CASCADE ON DELETE CASCADE
@@ -65,11 +65,17 @@ CREATE DATABASE girpss;
      id_enseignant INT NOT NULL AUTO_INCREMENT,
      nom_enseignant VARCHAR (20),
      profession_enseignant VARCHAR (200),
+     matiere_enseignant VARCHAR (200),
      contact_enseignant INT,
      salaire_enseignant INT,
-     age_enseignant CHAR,
+     age_enseignant INT,
+     sexe_enseignant CHAR,
      photo_enseignant VARCHAR(100),
         id_quartier INT,
+        date_enregistrer DATE,
+        date_supression DATE,
+        date_payement_prof DATE,
+        presence INT,
      etat_enseignant INT DEFAULT 0,
      PRIMARY KEY (id_enseignant),
      FOREIGN KEY (id_quartier) REFERENCES quartier(id_quartier) ON UPDATE CASCADE ON DELETE CASCADE
@@ -78,7 +84,7 @@ CREATE DATABASE girpss;
 CREATE TABLE IF NOT EXISTS planification(
      id_jour INT NOT NULL AUTO_INCREMENT,
      nom_jour VARCHAR (200),
-     etat_jour INT DEFAULT 0;
+     etat_jour INT DEFAULT 0,
      PRIMARY KEY (id_jour)
  );
 
@@ -103,7 +109,9 @@ CREATE TABLE IF NOT EXISTS eleve(
      id_enseignant INT,
      id_parent INT,
      id_classe INT,
-etat_eleve INT DEFAULT, 
+      date_enregistrer DATE,
+        date_supression DATE,
+etat_eleve INT DEFAULT 0, 
 	PRIMARY KEY (id_eleve),
      FOREIGN KEY (id_etablissement) REFERENCES etablissement(id_etablissement) ON UPDATE CASCADE ON DELETE CASCADE,
      FOREIGN KEY (id_enseignant) REFERENCES enseignant(id_enseignant) ON UPDATE CASCADE ON DELETE CASCADE,
